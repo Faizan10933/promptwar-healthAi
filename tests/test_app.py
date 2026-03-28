@@ -94,8 +94,8 @@ def test_process_health_text_mocked(mock_get_client):
     assert result["risk_level"] == "high" # Testing to check it forced lowercase alignment!
     assert result["action"] == "Hospital"
 
-@patch('utils.gcp_services.translate_to_english')
-@patch('utils.gemini_handler.process_health_text')
+@patch('app.translate_to_english')
+@patch('app.process_health_text')
 def test_full_analyze_route_success(mock_process, mock_translate, client):
     """End-to-end integration mapping for the 200 OK success flow."""
     mock_translate.return_value = "fever"
