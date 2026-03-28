@@ -145,6 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
         results.classList.remove('hidden');
         analyzeBtn.disabled = false;
         
+        // Accessibility: Announce to screen readers that results are ready
+        const statusRegion = document.getElementById('status-region');
+        if (statusRegion) {
+            statusRegion.textContent = "Analysis complete. Results are displayed below.";
+        }
+        
         results.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 });

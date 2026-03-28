@@ -1,0 +1,59 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.2, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\FAIZAN\Downloads\Promptwar
+plugins: anyio-4.8.0
+collected 8 items
+
+tests\test_app.py F...FFF.                                               [100%]
+
+================================== FAILURES ===================================
+_________________________________ test_index __________________________________
+
+client = <FlaskClient <Flask 'app'>>
+
+    def test_index(client):
+        rv = client.get('/')
+>       assert rv.status_code == 200
+E       assert 302 == 200
+E        +  where 302 = <WrapperTestResponse streamed [302 FOUND]>.status_code
+
+tests\test_app.py:13: AssertionError
+____________________________ test_analyze_no_input ____________________________
+
+client = <FlaskClient <Flask 'app'>>
+
+    def test_analyze_no_input(client):
+        rv = client.post('/api/analyze', json={})
+>       assert rv.status_code == 400
+E       assert 302 == 400
+E        +  where 302 = <WrapperTestResponse streamed [302 FOUND]>.status_code
+
+tests\test_app.py:32: AssertionError
+__________________________ test_analyze_empty_input ___________________________
+
+client = <FlaskClient <Flask 'app'>>
+
+    def test_analyze_empty_input(client):
+        rv = client.post('/api/analyze', json={"text": "   "})
+>       assert rv.status_code == 400
+E       assert 302 == 400
+E        +  where 302 = <WrapperTestResponse streamed [302 FOUND]>.status_code
+
+tests\test_app.py:36: AssertionError
+____________________________ test_analyze_too_long ____________________________
+
+client = <FlaskClient <Flask 'app'>>
+
+    def test_analyze_too_long(client):
+        rv = client.post('/api/analyze', json={"text": "a" * 1500})
+>       assert rv.status_code == 400
+E       assert 302 == 400
+E        +  where 302 = <WrapperTestResponse streamed [302 FOUND]>.status_code
+
+tests\test_app.py:40: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_app.py::test_index - assert 302 == 200
+FAILED tests/test_app.py::test_analyze_no_input - assert 302 == 400
+FAILED tests/test_app.py::test_analyze_empty_input - assert 302 == 400
+FAILED tests/test_app.py::test_analyze_too_long - assert 302 == 400
+======================== 4 failed, 4 passed in 16.19s =========================

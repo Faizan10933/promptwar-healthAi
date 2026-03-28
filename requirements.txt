@@ -2,3 +2,8 @@ flask
 gunicorn
 google-genai
 python-dotenv
+flask-talisman
+flask-cors
+google-cloud-logging
+bleach
+pytest

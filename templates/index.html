@@ -3,91 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Efficiency: Adding description & theme color -->
+    <meta name="description" content="AI-powered health insight analyzer. Convert symptoms into structured data securely.">
+    <meta name="theme-color" content="#0f172a">
     <title>Health Insights AI</title>
+    
+    <!-- Efficiency: Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
     <link rel="stylesheet" href="/static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <header>
+    <!-- Accessibility: Proper main wrapper and ARIA landmarks -->
+    <div class="container" role="document">
+        <header role="banner">
             <div class="logo-container">
-                <i class="fa-solid fa-heart-pulse logo-icon"></i>
-                <h1>Health Insights AI</h1>
+                <i class="fa-solid fa-heart-pulse logo-icon" aria-hidden="true"></i>
+                <h1 id="main-title">Health Insights AI</h1>
             </div>
             <p class="subtitle">Convert symptoms into structured, actionable insights instantly.</p>
         </header>
 
-        <main>
-            <div class="input-section card">
+        <main role="main" aria-labelledby="main-title">
+            <section class="input-section card" aria-label="Input Section">
                 <label for="symptom-input">Describe symptoms or situation:</label>
                 <div class="textarea-wrapper">
-                    <textarea id="symptom-input" rows="4" placeholder="e.g., my dad is 58, diabetic, sudden chest pain and sweating from 20 mins"></textarea>
-                    <button id="mic-btn" class="icon-btn" title="Use Voice Input"><i class="fa-solid fa-microphone"></i></button>
+                    <!-- Accessibility: aria-required array and specific sizing -->
+                    <textarea id="symptom-input" rows="4" aria-required="true" placeholder="e.g., my dad is 58, diabetic, sudden chest pain and sweating from 20 mins"></textarea>
+                    
+                    <button id="mic-btn" class="icon-btn" aria-label="Use Voice Input" title="Use Voice Input">
+                        <i class="fa-solid fa-microphone" aria-hidden="true"></i>
+                    </button>
                 </div>
                 
                 <div class="controls">
-                    <button id="analyze-btn" class="primary-btn">
+                    <button id="analyze-btn" class="primary-btn" aria-label="Analyze symptoms">
                         <span>Analyze</span>
-                        <i class="fa-solid fa-arrow-right"></i>
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                     </button>
                 </div>
-            </div>
+            </section>
 
-            <div id="loading" class="hidden">
+            <!-- Accessibility: aria-live ensures screen readers announce changes here -->
+            <div id="status-region" aria-live="polite" class="sr-only"></div>
+
+            <div id="loading" class="hidden" aria-hidden="true">
                 <div class="spinner"></div>
                 <p>Analyzing symptoms using Gemini AI...</p>
             </div>
 
-            <div id="results" class="results-section hidden">
-                <h2>Analysis Results</h2>
+            <section id="results" class="results-section hidden" aria-labelledby="results-title">
+                <h2 id="results-title">Analysis Results</h2>
                 
                 <div class="cards-grid">
-                    <div class="result-card symptoms-card">
-                        <div class="card-header">
-                            <i class="fa-solid fa-viruses"></i>
+                    <article class="result-card symptoms-card">
+                        <header class="card-header">
+                            <i class="fa-solid fa-viruses" aria-hidden="true"></i>
                             <h3>Symptoms</h3>
-                        </div>
-                        <ul id="symptoms-list"></ul>
-                    </div>
+                        </header>
+                        <!-- Security: textContent used instead of innerHTML in JS -->
+                        <ul id="symptoms-list" aria-label="List of identified symptoms"></ul>
+                    </article>
 
-                    <div class="result-card history-card">
-                        <div class="card-header">
-                            <i class="fa-solid fa-notes-medical"></i>
+                    <article class="result-card history-card">
+                        <header class="card-header">
+                            <i class="fa-solid fa-notes-medical" aria-hidden="true"></i>
                             <h3>Medical History</h3>
-                        </div>
-                        <ul id="history-list"></ul>
-                    </div>
+                        </header>
+                        <ul id="history-list" aria-label="List of medical history conditions"></ul>
+                    </article>
                 </div>
 
                 <div class="cards-grid">
-                    <div class="result-card risk-card" id="risk-card">
-                        <div class="card-header">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
+                    <article class="result-card risk-card" id="risk-card">
+                        <header class="card-header">
+                            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
                             <h3>Risk Level</h3>
-                        </div>
-                        <div id="risk-badge" class="badge"></div>
-                    </div>
+                        </header>
+                        <div id="risk-badge" class="badge" aria-label="Determined Risk Level"></div>
+                    </article>
 
-                    <div class="result-card action-card">
-                        <div class="card-header">
-                            <i class="fa-solid fa-kit-medical"></i>
+                    <article class="result-card action-card">
+                        <header class="card-header">
+                            <i class="fa-solid fa-kit-medical" aria-hidden="true"></i>
                             <h3>Suggested Action</h3>
-                        </div>
+                        </header>
                         <p id="action-text"></p>
-                    </div>
+                    </article>
                 </div>
-            </div>
+            </section>
         </main>
 
-        <footer>
-            <div class="disclaimer">
-                <i class="fa-solid fa-circle-info"></i>
+        <footer role="contentinfo">
+            <div class="disclaimer" role="alert">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
                 <p><strong>Disclaimer:</strong> This tool provides informational insights generated by AI. It is <strong>NOT</strong> medical advice, and should not replace professional medical diagnosis, treatment, or judgment. If you are experiencing a medical emergency, call your local emergency services immediately.</p>
             </div>
         </footer>
     </div>
 
-    <script src="/static/script.js"></script>
+    <!-- Efficiency: Defer script loading -->
+    <script src="/static/script.js" defer></script>
 </body>
 </html>
