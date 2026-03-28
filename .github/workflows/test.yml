@@ -27,6 +27,7 @@ jobs:
       env:
         # Dummy API key for CI tests that mock Gemini
         GEMINI_API_KEY: "dummy-key-for-testing"
+        PYTHONPATH: "."
       run: |
         pytest tests/ --cov=./ --cov-report=xml
         
