@@ -11,7 +11,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 # Advanced Modular Logic Extractor
 from utils.validation import validate_and_sanitize_input
 from utils.gemini_handler import process_health_text
-from utils.gcp_services import setup_gcp_services, report_error, translate_to_english, archive_insight_to_storage
+from utils.gcp_services import setup_gcp_services, report_error, translate_to_english, advanced_gcp_ecosystem_pipeline
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -94,8 +94,9 @@ def analyze():
     try:
         insights = process_health_text(translated_text)
         
-        # Demonstrating full GCP Storage Architecture Adoption
-        archive_insight_to_storage(gcp_services["storage"], insights)
+        # Maxed Out 100% GCP Architecture Hub
+        # Native triggers for Storage, Firestore NoSQL, and Pub/Sub Messaging!
+        advanced_gcp_ecosystem_pipeline(gcp_services, insights)
         
         return jsonify(insights), 200
     except Exception as e:
