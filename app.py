@@ -48,6 +48,7 @@ csp = {
 talisman = Talisman(
     app, 
     content_security_policy=csp, 
+    force_https=False,
     strict_transport_security=True,
     strict_transport_security_max_age=31536000 # 1 year HSTS
 )
