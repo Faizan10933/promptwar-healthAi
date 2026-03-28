@@ -112,3 +112,16 @@ def test_full_analyze_route_success(mock_process, mock_translate, client):
     data = json.loads(rv.data)
     assert data["symptoms"] == ["fever"]
     assert data["risk_level"] == "low"
+
+@patch('app.translate_to_english')
+@patch('app.process_health_text')
+def test_analyze_route_internal_error_coverage(mock_process, mock_translate, client):
+    """Forces the 500 exception block to hit 100% exact route coverage testing."""
+    mock_translate.return_value = "pain"
+    mock_process.side_effect = Exception("Deliberate API crash simulation")
+    
+    rv = client.post('/api/analyze', json={"text": "severe pain"})
+    assert rv.status_code == 500
+    data = json.loads(rv.data)
+    assert "error" in data
+
