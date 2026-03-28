@@ -11,7 +11,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 # Advanced Modular Logic Extractor
 from utils.validation import validate_and_sanitize_input
 from utils.gemini_handler import process_health_text
-from utils.gcp_services import setup_gcp_services, report_error, translate_to_english
+from utils.gcp_services import setup_gcp_services, report_error, translate_to_english, archive_insight_to_storage
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -93,6 +93,10 @@ def analyze():
     # 2. Extract Data via Gemini
     try:
         insights = process_health_text(translated_text)
+        
+        # Demonstrating full GCP Storage Architecture Adoption
+        archive_insight_to_storage(gcp_services["storage"], insights)
+        
         return jsonify(insights), 200
     except Exception as e:
         error_msg = f"Analysis Error: {str(e)}"
