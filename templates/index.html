@@ -17,6 +17,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Accessibility: NoScript Fallback -->
+    <noscript>
+        <div style="background-color: var(--danger-color); color: white; padding: 1rem; text-align: center;" role="alert">
+            <strong>JavaScript Required:</strong> This application relies on JavaScript to interact with the Google Gemini API securely. Please enable JavaScript to analyze your symptoms.
+        </div>
+    </noscript>
+
     <!-- Accessibility: Proper main wrapper and ARIA landmarks -->
     <div class="container" role="document">
         <header role="banner">
