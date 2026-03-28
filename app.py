@@ -10,7 +10,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # Configure Gemini API
-client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY", "AIzaSyAqNReRlDh7Wh7vsKwAVzoeL1sTUZcc9Wc"))
+client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY", ""))
 
 @app.route('/')
 def index():
